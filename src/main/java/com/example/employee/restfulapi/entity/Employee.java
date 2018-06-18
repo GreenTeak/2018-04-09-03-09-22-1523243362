@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name="Employee")
 public class Employee {
     @Id
     @GeneratedValue
@@ -58,7 +59,6 @@ public class Employee {
     public Integer getAge() {
         return age;
     }
-
 
     public String getGender() {
         return gender;

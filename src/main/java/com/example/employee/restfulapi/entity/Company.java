@@ -2,20 +2,27 @@ package com.example.employee.restfulapi.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-public class Company {
+@Table(name="Company")
+public class Company  {
     @Id
     @GeneratedValue
     private Long id;
     private String companyName;
     private Integer employeesNumber;
 
-    public Company() {
+    @OneToMany(targetEntity = Employee.class,cascade = {CascadeType.ALL})
+    @JoinColumn(name="companyId")
+    private List<Employee> employees=new ArrayList<>();
+
+    public Collection<Employee> getEmployee() {
+        return employees;
     }
 
+    public Company() {
+    }
     public Company(String companyName, Integer employeesNumber) {
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
