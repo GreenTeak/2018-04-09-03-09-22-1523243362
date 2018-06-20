@@ -28,7 +28,7 @@ public class CompanyController {
         return companyRepository.findOne(id);
     }
     @RequestMapping(value = "page/{pageNum}/pageSize/{pagesize}",method=RequestMethod.GET)
-    public Page<Company> getPagebyEmployee(@PathVariable("pageNum") int pageNum, @PathVariable("pagesize") int pagesize){
+    public Page<Company> getPagebyCompany(@PathVariable("pageNum") int pageNum, @PathVariable("pagesize") int pagesize){
         Pageable pageable=new PageRequest(pageNum,pagesize);
         return companyRepository.findAll(pageable);
     }
@@ -36,5 +36,18 @@ public class CompanyController {
     public List<Employee> getEmployeesbyCompany(@PathVariable("id") long id){
         Company company=companyRepository.findOne(id);
         return company.getEmployees();
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public Company addCompany(Company company){
+        return  companyRepository.save(company);
+    }
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public Company updateComapny(Company comany){
+        return companyRepository.save(comany);
+    }
+    @RequestMapping(value = "/{id}",method =RequestMethod.DELETE )
+    public boolean deleteCompany(@PathVariable("id") long id){
+        companyRepository.delete(id);
+        return true;
     }
 }
